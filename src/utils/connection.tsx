@@ -5,17 +5,43 @@ import { setCache, useAsyncData } from './fetch-loop';
 import tuple from 'immutable-tuple';
 import { ConnectionContextValues, EndpointInfo } from './types';
 
+
+export const endpoints = [
+  // { url: 'https://raydium.rpcpool.com', weight: 30 },
+  //{ url: 'https://solana-api.tt-prod.net', weight: 100 }
+   { url: 'https://ssc-dao.genesysgo.net', weight: 100 }
+   // { url: 'https://raydium.genesysgo.net', weight: 100 }
+    // { url: 'https://raydium.genesysgo.net', weight: 100 }
+]
+
+export function getRandomEndpoint() {
+  let pointer = 0
+  const random = Math.random() * 100
+  let api = endpoints[0].url
+
+  for (const endpoint of endpoints) {
+    if (random > pointer + endpoint.weight) {
+      pointer += pointer + endpoint.weight
+    } else if (random >= pointer && random < pointer + endpoint.weight) {
+      api = endpoint.url
+      break
+    } else {
+      api = endpoint.url
+      break
+    }
+  }
+
+  return api
+}
+
 export const ENDPOINTS: EndpointInfo[] = [
   {
     name: 'mainnet-beta',
-    endpoint: 'https://solana-api.projectserum.com',
+    // endpoint: 'https://solana-api.projectserum.com',
+    endpoint: getRandomEndpoint(),
     custom: false,
   },
-  {
-    name: 'mainnet-beta (alt)',
-    endpoint: 'https://api.mainnet-beta.solana.com',
-    custom: false,
-  }
+  { name: 'localnet', endpoint: 'http://127.0.0.1:8899', custom: false },
 ];
 
 const accountListenerCount = new Map();
