@@ -23,7 +23,6 @@ import {
 import {WRAPPED_SOL_MINT} from '@project-serum/serum/lib/token-instructions';
 import {Order} from '@project-serum/serum/lib/market';
 import BonfidaApi from './bonfidaConnector';
-import RaydiumApi from './raydiumConnector';
 import sonarMarkets from './sonar-markets.json'
 import sonarTokenMints from './sonar-token-mints.json'
 
